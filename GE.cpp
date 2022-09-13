@@ -1,20 +1,24 @@
 #include <iostream>
 #include<bits/stdc++.h>
 using namespace std;
-
+// double error = 0.00000001;
 void forward_eli(vector<vector<double>> &A, vector<double> &B)
 {
     int n = A.size();
-    for(int i=0;i<n-1;i++)
+    for(int k=0;k<n-1;k++)
     {
-        for(int j=i+1;j<n;j++)
+        for(int i=k+1;i<n;i++)
         {
-            double fact = A[j][i]/A[i][i];
-            for(int k=i+1;k<n;k++)
+            double fact = A[i][k]/A[i][i];
+            for(int j=k;j<n;j++)
             {
-                A[j][k] = A[j][k] - fact*A[i][k];
+                A[i][j] = A[i][j] - fact*A[k][j];
+                // if(A[j][k] < error)
+                // {
+                //     A[j][k] = 0;
+                // }
             }
-            B[j] = B[j] - fact*B[i];
+            B[i] = B[i] - fact*B[k];
         }
     }
 }
@@ -57,7 +61,7 @@ int main()
    
     int n = 5;
     forward_eli(A, B);
-    backward_eli(A, B);
+    // backward_eli(A, B);
     cout << setprecision(3);
     for(int i=0;i<n;i++)
     {
