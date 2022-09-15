@@ -9,7 +9,7 @@ void forward_eli(vector<vector<double>> &A, vector<double> &B)
     {
         for(int i=k+1;i<n;i++)
         {
-            double fact = A[i][k]/A[i][i];
+            double fact = A[i][k]/A[k][k];
             A[i][k] = (double)0;
             for(int j=k+1;j<n;j++)
             {
@@ -24,10 +24,10 @@ void forward_eli(vector<vector<double>> &A, vector<double> &B)
     }
 }
 
-void backward_eli(vector<vector<double>> &A, vector<double> &B)
+vector<double> back_sub(vector<vector<double>> &A, vector<double> &B)
 {
     int n = A.size();
-    double X[n];
+    vector<double> X(n);
     X[n-1] = B[n-1]/A[n-1][n-1];
     for(int i=n-2;i>=0;i--)
     {
@@ -38,32 +38,27 @@ void backward_eli(vector<vector<double>> &A, vector<double> &B)
         }
         X[i] = sum/A[i][i];
     }
-    
+    return X;
 }
 
 int main()
 {
+    double val = pow(2, -20);
     vector<vector<double>> A
     {
-        {-2,1,0,0,0},
-        {1,-2,1,0,0},
-        {0,1,-2,1,0},
-        {0,0,1,-2,1},
-        {0,0,0,1,-2}
+        {0.0000000000000001, 2},
+        {1, -1}
     };
    
     vector<double> B
     {
-        -1,
-         0,
-         0,
-         0,
-        -1
+        4,
+        1
     };
    
-    int n = 5;
+    int n = A.size();
     forward_eli(A, B);
-    backward_eli(A, B);
+    vector<double> ANS = back_sub(A, B);
     cout << setprecision(3);
     for(int i=0;i<n;i++)
     {
@@ -73,4 +68,11 @@ int main()
         }
         cout << '|' << B[i] << '\n';
     }
+    cout<<'\n';
+    cout<<"Values of X:\n";
+    for(int i=0;i<ANS.size();i++)
+    {
+        cout << ANS[i] << ' ';
+    }
+    cout<<'\n';
 }
