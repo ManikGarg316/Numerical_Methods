@@ -22,6 +22,7 @@ void forward_eli(vector<vector<double>> &A, vector<double> &B)
             B[i] = B[i] - fact*B[k];
         }
     }
+    return;
 }
 
 vector<double> back_sub(vector<vector<double>> &A, vector<double> &B)
@@ -46,7 +47,7 @@ int main()
     double val = pow(2, -10);
     vector<vector<double>> A
     {
-        {1, 2},
+        {0.00001, 2},
         {1, -1}
     };
    
