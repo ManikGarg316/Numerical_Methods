@@ -43,10 +43,10 @@ vector<double> back_sub(vector<vector<double>> &A, vector<double> &B)
 
 int main()
 {
-    double val = pow(2, -20);
+    double val = pow(2, -10);
     vector<vector<double>> A
     {
-        {0.0000000000000001, 2},
+        {1, 2},
         {1, -1}
     };
    
