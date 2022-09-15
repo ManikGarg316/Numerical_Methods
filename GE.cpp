@@ -10,7 +10,8 @@ void forward_eli(vector<vector<double>> &A, vector<double> &B)
         for(int i=k+1;i<n;i++)
         {
             double fact = A[i][k]/A[i][i];
-            for(int j=k;j<n;j++)
+            A[i][k] = (double)0;
+            for(int j=k+1;j<n;j++)
             {
                 A[i][j] = A[i][j] - fact*A[k][j];
                 // if(A[j][k] < error)
@@ -37,6 +38,7 @@ void backward_eli(vector<vector<double>> &A, vector<double> &B)
         }
         X[i] = sum/A[i][i];
     }
+    
 }
 
 int main()
@@ -61,7 +63,7 @@ int main()
    
     int n = 5;
     forward_eli(A, B);
-    // backward_eli(A, B);
+    backward_eli(A, B);
     cout << setprecision(3);
     for(int i=0;i<n;i++)
     {
