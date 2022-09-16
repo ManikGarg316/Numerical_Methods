@@ -1,4 +1,6 @@
 #include<bits/stdc++.h>
+#include<iostream>
+#include<fstream>
 using namespace std;
 
 double f(double x)
@@ -11,36 +13,36 @@ double f_der(double x)
     return (double)2*x - (double)2;
 }
 
-double NewtonRaphson(double guess, double error)
+void NewtonRaphson(double guess, double error)
 {
-    int i=0;
+    ofstream OUTPUT("./output.txt");
+    long long int i=0;
+    long long int max_iter = 1000000000;
     while(1)
     {
-        if(i > 10000000)
+        if(i > max_iter)
         {
+            OUTPUT<<"ERROR: Could not complete operation\nIterations exceeded\nDiverging answer\n";
+            OUTPUT<<"This is the end result by newton raphson method: "<<to_string(guess);
             break;
-            // cout<<"ERROR: Iterations exceeded...\n";
-            // exit(0);
-            // return (double)-1;
         }
        
-        double Temp = guess - (f(guess)/f_der(guess));
-        if(abs(Temp - guess) <= error)
+        double temp = guess - (f(guess)/f_der(guess));
+
+        if(abs(temp - guess) <= error)
         {
-            guess = Temp;
+            OUTPUT<<"This is the root by newton raphson method: "<<to_string(temp);
             break;
         }
-        else
-        {
-            guess = Temp;
-        }
+        guess = temp;
         i++;
     }
-    return guess;
+    OUTPUT.close();
+    return;
 }
 
 int main()
 {
     double epsilon = 0.0000001;
-    cout << NewtonRaphson(0, epsilon);
+    NewtonRaphson((double)0, epsilon);
 }

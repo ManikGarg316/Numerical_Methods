@@ -2,26 +2,30 @@
 using namespace std;
 double func(double x)
 {
-    return x*x + 4*x + 1;
+    return x*x;
 }
 
 void Regular_Falsi_Method(double guess1, double guess2, double epsilon)
 {
+    ofstream OUTPUT("./output.txt");
     double i_g1 = func(guess1);
     double i_g2 = func(guess2);
     if(abs(i_g1) <= epsilon)
     {
-        cout<<"This is the root: "<<guess1<<'\n';
+        OUTPUT<<"This is the root using regular falsi method: "<<to_string(guess1);
+        OUTPUT.close();
         return;
     }
     if(abs(i_g2) <= epsilon)
     {
-        cout<<"This is the root: "<<guess2<<'\n';
+        OUTPUT<<"This is the root using regular falsi method: "<<to_string(guess2);
+        OUTPUT.close();
         return;
     }
     if(i_g1*i_g2 > 0)
     {
         cout<<"Give valid initial guesses\n";
+        OUTPUT.close();
         return;
     }
     while(1)
@@ -33,7 +37,7 @@ void Regular_Falsi_Method(double guess1, double guess2, double epsilon)
 
         if(abs(ans) <= epsilon)
         {
-            cout<<"This is the root: "<<temp<<'\n';
+            OUTPUT<<"This is the root using regular falsi method: "<<to_string(guess1);
             break;
         }
         else if(ans*f_g1 < 0)
@@ -45,10 +49,11 @@ void Regular_Falsi_Method(double guess1, double guess2, double epsilon)
             guess1 = temp;
         }
     }
+    OUTPUT.close();
     return;
 }
 int main()
 {
     double error = 0.0000001;
-    Regular_Falsi_Method((double)(-3), (double)(-4), error);
+    Regular_Falsi_Method((double)(0), (double)(1), error);
 }

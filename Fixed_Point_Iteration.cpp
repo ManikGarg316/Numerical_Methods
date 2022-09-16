@@ -1,58 +1,39 @@
 #include<bits/stdc++.h>
 using namespace std;
-double func(double x)
-{
-    return x*x + 4*x + 1;
-}
 
 double g(double x)
 {
-
+    return (double)1 + ((double)1)/x;
 }
-void Fixed_Point_Iteration(double guess1, double guess2, double epsilon)
+void Fixed_Point_Iteration(double guess, double epsilon)
 {
-    double i_g1 = func(guess1);
-    double i_g2 = func(guess2);
-    if(i_g1 <= epsilon)
-    {
-        cout<<"This is the root: "<<guess1<<'\n';
-        return;
-    }
-    if(i_g2 <= epsilon)
-    {
-        cout<<"This is the root: "<<guess2<<'\n';
-        return;
-    }
-    if(i_g1*i_g2 > 0)
-    {
-        cout<<"Give valid initial guesses\n";
-        return;
-    }
+    ofstream OUTPUT("./output.txt");
+    long long int i=0;
+    long long int max_iter = 1000000000;
     while(1)
     {
-        double temp = (guess1+guess2)/(double)2;
-        double ans = func(temp);
-        double f_g1 = func(guess1);
-        double f_g2 = func(guess2);
-
-        if(abs(ans) <= epsilon)
+        if(i > max_iter)
         {
-            cout<<"This is the root: "<<temp<<'\n';
+            OUTPUT<<"ERROR: Could not complete operation\nIterations exceeded\nDiverging answer\n";
+            OUTPUT<<"This is the end result by newton raphson method: "<<to_string(guess);
             break;
         }
-        else if(ans*f_g1 < 0)
+
+        double temp = g(guess);
+
+        if(abs(temp - guess) <= epsilon)
         {
-            guess2 = temp;
+            OUTPUT<<"This is the root by fixed point iteration method: "<<to_string(temp);
+            break;
         }
-        else if(ans*f_g2 < 0)
-        {
-            guess1 = temp;
-        }
+        guess = temp;
+        i++;
     }
+    OUTPUT.close();
     return;
 }
 int main()
 {
     double error = 0.0000001;
-    Fixed_Point_Iteration((double)(-3), (double)(-4), error);
+    Fixed_Point_Iteration((double)(2), error);
 }
