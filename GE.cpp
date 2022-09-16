@@ -47,7 +47,7 @@ int main()
     double val = pow(2, -10);
     vector<vector<double>> A
     {
-        {0.00001, 2},
+        {0.0000000000000001, 2},
         {1, -1}
     };
    
