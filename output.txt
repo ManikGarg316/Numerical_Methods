@@ -1,1 +1,1 @@
-This is the root using Atkin's Delta Square Method: 1.618034
+0.00001
