@@ -16,6 +16,12 @@ void AtkinsDeltaSquare(double guess0, double error)
     double A0 = (guess2*guess0 - guess1*guess1)/(guess2 - ((double)2)*guess1 + guess0);
     while(1)
     {
+        if(i > max_iter)
+        {
+            OUTPUT<<"ERROR: Could not complete operation\nIterations exceeded\nDiverging answer\n";
+            OUTPUT<<"This is the end result by Atkin's Delta Square method: "<<to_string(guess);
+            break;
+        }
         double temp = g(guess2);
         guess0 = guess1;
         guess1 = guess2;
