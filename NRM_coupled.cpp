@@ -156,11 +156,11 @@ void coupledeqns(vector<double> &Guess, double error)
             return;
         }
         Gauss(Jacob, B, vals, tol, er);
-        for(int i=0;i<n;i++)
-        {
-        cout << Guess[i] << ' ';
-        }
-        cout << '\n';
+        // for(int i=0;i<n;i++)
+        // {
+        // cout << Guess[i] << ' ';
+        // }
+        // cout << '\n';
         for(int i=0;i<n;i++)
         {
             Guess[i] = Guess[i] + vals[i];
