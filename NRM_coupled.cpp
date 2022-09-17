@@ -1,6 +1,7 @@
 #include<iostream>
 #include<bits/stdc++.h>
 #include<fstream>
+#include<windows.h>
 using namespace std;
 
 vector<vector<double>> Jacobian(vector<double> Init)
@@ -8,9 +9,9 @@ vector<vector<double>> Jacobian(vector<double> Init)
     double x = Init[0], y = Init[1], z = Init[2];
     vector<vector<double>> jac
     {
-        {1,1,1},
-        {y+z, x+z, x+y},
-        {y*y + ((double)2)*x*z - y*z, z*z + ((double)2)*x*y - x*z, x*x + ((double)2)*y*z - x*y}
+        {((double)3)*x*x - ((double)3)*y*z, ((double)3)*y*y - ((double)3)*x*z, ((double)3)*z*z - ((double)3)*x*y},
+        {((double)2)*x*(y - z) - y*y + z*z, ((double)2)*y*(z - x) - z*z + x*x, ((double)2)*z*(x - y) - x*x + y*y},
+        {((double)3)*y*z - z*z - ((double)2)*x*y, ((double)3)*x*z - ((double)2)*y*z - x*x, ((double)3)*x*y - y*y - ((double)2)*x*z}
     };
     return jac;
 }
@@ -20,9 +21,9 @@ vector<double> Bcal(vector<double> Init)
     double x = Init[0], y = Init[1], z = Init[2];
     vector<double> B
     {
-        (double)-1*(x+y+z - (double)3),
-        (double)-1*(x*y + y*z + z*x - (double)3),
-        (double)-1*(x*y*y + y*z*z + z*x*x - x*y*z - (double)2)
+        ((double)-1)*(x*x*x + y*y*y + z*z*z - ((double)3)*(x*y*z + ((double)6))),
+        ((double)-1)*(x*x*(y-z) + y*y*(z-x) + z*z*(x-y) + ((double)2)),
+        ((double)-1)*((x-y)*y*z + (y-z)*z*x + (z-x)*x*y + ((double)5))
     };
     return B;
 }
@@ -135,11 +136,21 @@ void Gauss(vector<vector<double>> &A, vector<double> &B, vector<double> &X, doub
 void coupledeqns(vector<double> &Guess, double error)
 {
     int n = Guess.size();
+
     while(1)
     {
         vector<double> vals(n);
         vector<vector<double>> Jacob = Jacobian(Guess);
         vector<double> B = Bcal(Guess);
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                cout << Jacob[i][j] << ' ';
+            }
+            cout << "| " << B[i] << '\n';
+        }
+        cout << "\n\n";
         double tol = 0.0000001;
         int er = 0;
         bool flag = true;
@@ -156,11 +167,11 @@ void coupledeqns(vector<double> &Guess, double error)
             return;
         }
         Gauss(Jacob, B, vals, tol, er);
-        // for(int i=0;i<n;i++)
-        // {
-        // cout << Guess[i] << ' ';
-        // }
-        // cout << '\n';
+        for(int i=0;i<n;i++)
+        {
+        cout << vals[i] << ' ';
+        }
+        cout << '\n';
         for(int i=0;i<n;i++)
         {
             Guess[i] = Guess[i] + vals[i];
@@ -168,11 +179,18 @@ void coupledeqns(vector<double> &Guess, double error)
     }
     return;
 }
+
+
 int main()
 {
     double epsilon = 0.0000001;
-    vector<double> Initial_Guess{0,2,3};
+    vector<double> Initial_Guess{0,1,2};
     int n = Initial_Guess.size();
     coupledeqns(Initial_Guess, epsilon);
+    for(int i=0;i<n;i++)
+    {
+        cout << Initial_Guess[i] << ' ';
+    }
+    cout << '\n';
     return 0;
 }
