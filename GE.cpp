@@ -1,5 +1,6 @@
-#include <iostream>
+#include<iostream>
 #include<bits/stdc++.h>
+#include<fstream>
 using namespace std;
 // double error = 0.00000001;
 void forward_eli(vector<vector<double>> &A, vector<double> &B)
@@ -42,6 +43,14 @@ vector<double> back_sub(vector<vector<double>> &A, vector<double> &B)
     return X;
 }
 
+vector<double> Gauss(vector<vector<double>> &A, vector<double> &B)
+{
+    ofstream OUTPUT("./output.txt");
+    forward_eli(A, B);
+    vector<double> ans = back_sub(A, B);
+    return ans;
+    OUTPUT.close();
+}
 int main()
 {
     double val = pow(2, -10);
@@ -58,8 +67,7 @@ int main()
     };
    
     int n = A.size();
-    forward_eli(A, B);
-    vector<double> ANS = back_sub(A, B);
+    vector<double> ANS = Gauss(A, B);
     cout << setprecision(3);
     for(int i=0;i<n;i++)
     {

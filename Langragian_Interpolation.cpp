@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#include<bits/stdc++.h>
+#include<fstream>
 using namespace std;
 
 vector<double> finding_coeff(vector<pair<double, double>> vals)
@@ -51,6 +53,7 @@ vector<pair<double, double>> proper_set(vector<pair<double, double>> vals, int x
 
 double LangragianInterpolation(vector<pair<double, double>> DATA, int x_prime, int order)
 {
+    ofstream OUTPUT("./output.txt");
     vector<pair<double, double>> DATA_REQUIRED = proper_set(DATA, x_prime, order);
     // for(int i=0;i<order+1;i++)
     // {
@@ -71,6 +74,7 @@ double LangragianInterpolation(vector<pair<double, double>> DATA, int x_prime, i
         }
         ans = ans+x;
     }
+    OUTPUT.close();
     return ans;
 }
 

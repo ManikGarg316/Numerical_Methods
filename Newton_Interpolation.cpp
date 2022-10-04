@@ -1,4 +1,6 @@
+#include<iostream>
 #include<bits/stdc++.h>
+#include<fstream>
 using namespace std;
 void Display(vector<pair<double, double>> data)
 {
@@ -97,6 +99,7 @@ void display(vector<double> data)
 
 double NewtonInterpolation(vector<pair<double, double>> data, int order, int x_prime)
 {
+    ofstream OUTPUT("./output.txt");
     data = DataAdjuster(data, order, x_prime);
     Display(data);
     vector<double> Level{1};
@@ -116,6 +119,7 @@ double NewtonInterpolation(vector<pair<double, double>> data, int order, int x_p
         }
         ans = ans + sum*factor;
     }
+    OUTPUT.close();
     return ans;   
 }
 

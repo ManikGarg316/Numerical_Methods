@@ -19,7 +19,7 @@ void AtkinsDeltaSquare(double guess0, double error)
         if(i > max_iter)
         {
             OUTPUT<<"ERROR: Could not complete operation\nIterations exceeded\nDiverging answer\n";
-            OUTPUT<<"This is the end result by Atkin's Delta Square method: "<<to_string(guess);
+            OUTPUT<<"This is the end result by Atkin's Delta Square method: "<<to_string(guess2);
             break;
         }
         double temp = g(guess2);

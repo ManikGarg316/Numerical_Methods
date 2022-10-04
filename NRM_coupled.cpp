@@ -1,7 +1,6 @@
 #include<iostream>
 #include<bits/stdc++.h>
 #include<fstream>
-#include<windows.h>
 using namespace std;
 
 vector<vector<double>> Jacobian(vector<double> Init)
@@ -187,10 +186,12 @@ int main()
     vector<double> Initial_Guess{0,1,2};
     int n = Initial_Guess.size();
     coupledeqns(Initial_Guess, epsilon);
+    ofstream OUTPUT("./output.txt");
     for(int i=0;i<n;i++)
     {
         cout << Initial_Guess[i] << ' ';
     }
     cout << '\n';
+    OUTPUT.close();
     return 0;
 }

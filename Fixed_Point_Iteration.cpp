@@ -1,4 +1,6 @@
+#include<iostream>
 #include<bits/stdc++.h>
+#include<fstream>
 using namespace std;
 
 double g(double x)

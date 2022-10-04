@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#include<bits/stdc++.h>
+#include<fstream>
 using namespace std;
 void Pivot(vector<vector<double>>&A, vector<double>&B, vector<double> &S, int k)
 {
@@ -108,6 +110,7 @@ void Gauss(vector<vector<double>> &A, vector<double> &B, vector<double> &X, doub
 double QuadraticSpline(vector<pair<double, double>> data, double x_prime)
 {
     int n = data.size();
+    ofstream OUTPUT("./output.txt");
     int itr=1;
     for(;itr<n;itr++)
     {
@@ -141,13 +144,21 @@ double QuadraticSpline(vector<pair<double, double>> data, double x_prime)
     Gauss(A, B, X, 0.000001, er);
     X.push_back(1);
     X.insert(X.begin(), 23);
-    double ans = 0;
+    itr--;
+    double a = pow((x_prime - data[itr].first), 2.0);
+    double b = pow((x_prime - data[itr+1].first), 2.0);
+    double ans = (X[itr+1]*a)/(2*(data[itr+1].first - data[itr].first));
+    ans = ans + (X[itr]*b)/(2*(data[itr].first - data[itr+1].first));
+    ans += (data[itr].second + data[itr+1].second)/4;
+    ans = ans - ((data[itr+1].first - data[itr].first)*(X[itr+1] - X[itr]))/4;
+    OUTPUT.close();
     return ans;
 }
 
 double CubicSpline(vector<pair<double, double>> data, double x_prime)
 {
     int n = data.size();
+    ofstream OUTPUT("./output.txt");
     int itr=1;
     for(;itr<n;itr++)
     {
@@ -202,12 +213,14 @@ double CubicSpline(vector<pair<double, double>> data, double x_prime)
     double ans = (X[itr]/6)*((a/(data[itr].first - data[itr+1].first)) - (x_prime - data[itr+1].first)*(data[itr].first - data[itr+1].first));
     ans = ans - (X[itr+1]/6)*((b/(data[itr].first - data[itr+1].first) - (x_prime - data[itr].first)*(data[itr].first - data[itr+1].first)));
     ans += (data[itr].second*(x_prime - data[itr+1].first) - data[itr+1].second*(x_prime - data[itr].first))/(data[itr].first - data[itr+1].first);
+    OUTPUT.close();
     return ans;
 }
 
 double LinearSpline(vector<pair<double, double>> data, double x_prime)
 {   
     int n = data.size();
+    ofstream OUTPUT("./output.txt");
     int itr=1;
     for(;itr<n;itr++)
     {
@@ -218,6 +231,7 @@ double LinearSpline(vector<pair<double, double>> data, double x_prime)
     }
     double b = (data[itr-1].second - data[itr].second)/(data[itr-1].first - data[itr].first);
     double a = data[itr-1].second - b*data[itr-1].first;
+    OUTPUT.close();
     return a+b*x_prime;
 }
 
@@ -247,5 +261,5 @@ int main()
         cout << "Value out of range. Can't extrapolate\n";
         exit(0);
     }
-    cout << CubicSpline(data_points, 50.0);
+    cout << QuadraticSpline(data_points, 60.0);
 }

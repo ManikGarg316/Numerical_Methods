@@ -1,4 +1,6 @@
+#include<iostream>
 #include<bits/stdc++.h>
+#include<fstream>
 using namespace std;
 
 void Pivot(vector<vector<double>>&A, vector<double>&B, vector<double> &S, int k)
@@ -135,10 +137,12 @@ int main()
     int er = 0;
     double tol = 0.00000001;
     Gauss(A, B, X, tol, er);
+    ofstream OUTPUT("./output.txt");
     cout << "Values of X: ";
     for(int i=0;i<n;i++)
     {
         cout << X[i] << ' ';
     }
+    OUTPUT.close();
     cout << '\n';
 }

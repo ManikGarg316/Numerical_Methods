@@ -1,6 +1,6 @@
+#include<iostream>
 #include<bits/stdc++.h>
-#include <iostream>
-#include <fstream>
+#include<fstream>
 using namespace std;
 
 // A quick way to split strings separated via any character

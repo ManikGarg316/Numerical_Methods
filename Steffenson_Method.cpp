@@ -18,7 +18,7 @@ void SteffensonMethod(double guess0, double error)
         if(i > max_iter)
         {
             OUTPUT<<"ERROR: Could not complete operation\nIterations exceeded\nDiverging answer\n";
-            OUTPUT<<"This is the end result by Steffenson method: "<<to_string(guess);
+            OUTPUT<<"This is the end result by Steffenson method: "<<to_string(guess0);
             break;
         }
         double guess1 = g(guess0);
