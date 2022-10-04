@@ -109,9 +109,9 @@ void Gauss(vector<vector<double>> &A, vector<double> &B, vector<double> &X, doub
 
 double QuadraticSpline(vector<pair<double, double>> data, double x_prime)
 {
-    int n = data.size();
     ofstream OUTPUT("./output.txt");
     int itr=1;
+    int n = data.size();
     for(;itr<n;itr++)
     {
         if(x_prime < data[itr].first && data[itr-1].first < x_prime)
@@ -119,40 +119,55 @@ double QuadraticSpline(vector<pair<double, double>> data, double x_prime)
             break;
         }
     }
-    cout << data[itr-1].first << ' ' << data[itr-1].second << '\n';
-    cout << data[itr].first << ' ' << data[itr].second << '\n';
-    vector<vector<double>> A(n, vector<double>(n));
-    vector<double> B(n);
-    for(int i=1;i<n-1;i++)
-    {
-        A[i][i-1] = data[i].first - data[i-1].first;
-        A[i][i] = data[i+1].first - data[i-1].first;
-        A[i][i+1] = data[i+1].first - data[i].first;
-        B[i] = (data[i+1].second - data[i-1].second);
-    }
-    A.pop_back();
-    B.pop_back();
-    A.erase(A.begin());
-    B.erase(B.begin());
-    for(int i=0;i<A.size();i++)
-    {
-        A[i].erase(A[i].begin());
-        A[i].pop_back();
-    }
-    vector<double> X(n-2);
-    int er = 0;
-    Gauss(A, B, X, 0.000001, er);
-    X.push_back(1);
-    X.insert(X.begin(), 23);
     itr--;
-    double a = pow((x_prime - data[itr].first), 2.0);
-    double b = pow((x_prime - data[itr+1].first), 2.0);
-    double ans = (X[itr+1]*a)/(2*(data[itr+1].first - data[itr].first));
-    ans = ans + (X[itr]*b)/(2*(data[itr].first - data[itr+1].first));
-    ans += (data[itr].second + data[itr+1].second)/4;
-    ans = ans - ((data[itr+1].first - data[itr].first)*(X[itr+1] - X[itr]))/4;
+    vector<double> d(n, 0.0);
+    for(int i=0;i<n-1;i++)
+    {
+        d[i+1] = (((double)2)*(data[i+1].second - data[i].second))/(data[i+1].first - data[i].first);
+        d[i+1] = d[i+1] - d[i];
+    }
+    double a = pow(x_prime - data[itr].first, 2.0);
+    double ans = ((d[itr+1] - d[itr])*a)/(2*(data[itr+1].first - data[itr].first));
+    ans = ans + (d[itr]*(x_prime - data[itr].first));
+    ans = ans + data[itr].second;
     OUTPUT.close();
     return ans;
+    // int n = data.size();
+    // 
+    // cout << data[itr-1].first << ' ' << data[itr-1].second << '\n';
+    // cout << data[itr].first << ' ' << data[itr].second << '\n';
+    // vector<vector<double>> A(n, vector<double>(n));
+    // vector<double> B(n);
+    // for(int i=1;i<n-1;i++)
+    // {
+    //     A[i][i-1] = data[i].first - data[i-1].first;
+    //     A[i][i] = data[i+1].first - data[i-1].first;
+    //     A[i][i+1] = data[i+1].first - data[i].first;
+    //     B[i] = (data[i+1].second - data[i-1].second);
+    // }
+    // A.pop_back();
+    // B.pop_back();
+    // A.erase(A.begin());
+    // B.erase(B.begin());
+    // for(int i=0;i<A.size();i++)
+    // {
+    //     A[i].erase(A[i].begin());
+    //     A[i].pop_back();
+    // }
+    // vector<double> X(n-2);
+    // int er = 0;
+    // Gauss(A, B, X, 0.000001, er);
+    // X.push_back(1);
+    // X.insert(X.begin(), 23);
+    // itr--;
+    // double a = pow((x_prime - data[itr].first), 2.0);
+    // double b = pow((x_prime - data[itr+1].first), 2.0);
+    // double ans = (X[itr+1]*a)/(2*(data[itr+1].first - data[itr].first));
+    // ans = ans + (X[itr]*b)/(2*(data[itr].first - data[itr+1].first));
+    // ans += (data[itr].second + data[itr+1].second)/4;
+    // ans = ans - ((data[itr+1].first - data[itr].first)*(X[itr+1] - X[itr]))/4;
+    // 
+    // return ans;
 }
 
 double CubicSpline(vector<pair<double, double>> data, double x_prime)
@@ -252,10 +267,10 @@ int main()
         {17, 83},
     };
     sort(data_points.begin(), data_points.end());
-    // for(int i=0;i<10;i++)
-    // {
-    //     cout << data_points[i].first << " " << data_points[i].second << '\n';
-    // }
+    for(int i=0;i<10;i++)
+    {
+        cout << data_points[i].first << " " << data_points[i].second << '\n';
+    }
     if(val > data_points[data_points.size()-1].first || val < data_points[0].first)
     {
         cout << "Value out of range. Can't extrapolate\n";
