@@ -107,6 +107,9 @@ void Gauss(vector<vector<double>> &A, vector<double> &B, vector<double> &X, doub
     return;
 }
 
+
+//Quadratic Spline is not giving the right answer
+//I have to change it and make it right
 double QuadraticSpline(vector<pair<double, double>> data, double x_prime)
 {
     ofstream OUTPUT("./output.txt");

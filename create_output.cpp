@@ -2,6 +2,7 @@
 #include<bits/stdc++.h>
 #include<fstream>
 using namespace std;
+
 void create_output(vector<double> X)
 {
     ofstream OUTPUT("./output.txt");
@@ -22,6 +23,7 @@ void create_output(vector<double> X)
     }
     return; 
 }
+
 int main()
 {
     vector<double> A;

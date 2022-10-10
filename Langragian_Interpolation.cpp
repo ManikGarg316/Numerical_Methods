@@ -22,7 +22,7 @@ vector<double> finding_coeff(vector<pair<double, double>> vals)
     return Coeffs;
 }
 
-vector<pair<double, double>> proper_set(vector<pair<double, double>> vals, int x_prime, int eqn_order)
+vector<pair<double, double>> proper_set(vector<pair<double, double>> vals, double x_prime, int eqn_order)
 {
     int n = vals.size();
     if(eqn_order+1 == n)
@@ -51,7 +51,7 @@ vector<pair<double, double>> proper_set(vector<pair<double, double>> vals, int x
     return ans;
 }
 
-double LangragianInterpolation(vector<pair<double, double>> DATA, int x_prime, int order)
+double LangragianInterpolation(vector<pair<double, double>> DATA, double x_prime, int order)
 {
     ofstream OUTPUT("./output.txt");
     vector<pair<double, double>> DATA_REQUIRED = proper_set(DATA, x_prime, order);

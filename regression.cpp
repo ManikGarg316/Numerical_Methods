@@ -107,6 +107,8 @@ void Gauss(vector<vector<double>> &A, vector<double> &B, vector<double> &X, doub
     return;
 }
 
+//if function is provided by user, not order, we would need change these two functions
+//1.
 vector<double> regB(vector<pair<double, double>> data_points, int order)
 {
     int n = data_points.size();
@@ -123,6 +125,7 @@ vector<double> regB(vector<pair<double, double>> data_points, int order)
     return B;
 }
 
+//2.
 vector<vector<double>> regA(vector<pair<double, double>> data_points, int order)
 {
     int n = data_points.size();

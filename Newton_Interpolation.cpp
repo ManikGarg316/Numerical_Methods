@@ -69,10 +69,10 @@ vector<pair<double, double>> DataAdjuster(vector<pair<double, double>> data, int
     return ans;
 }
 
-vector<double> nextPascal(vector<double> vals)
+vector<int> nextPascal(vector<int> vals)
 {
     int n = vals.size();
-    vector<double> ans;
+    vector<int> ans;
     ans.push_back(1);
     for(int i=0;i<n-1;i++)
     {
@@ -97,12 +97,12 @@ void display(vector<double> data)
     return;
 }
 
-double NewtonInterpolation(vector<pair<double, double>> data, int order, int x_prime)
+double NewtonInterpolation(vector<pair<double, double>> data, int order, double x_prime)
 {
     ofstream OUTPUT("./output.txt");
     data = DataAdjuster(data, order, x_prime);
     Display(data);
-    vector<double> Level{1};
+    vector<int> Level{1};
     double ans = data[0].second;
     double factor = 1.0;
     int N = 3;
@@ -115,7 +115,7 @@ double NewtonInterpolation(vector<pair<double, double>> data, int order, int x_p
         int n = Level.size();
         for(int j=0;j<n;j++)
         {
-            sum = sum + data[n-1-j].second*Level[j];
+            sum = sum + (data[n-1-j].second)*((double)Level[j]);
         }
         ans = ans + sum*factor;
     }

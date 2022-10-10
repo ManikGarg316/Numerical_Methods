@@ -6,6 +6,7 @@ double g(double x)
 {
     return (double)1 + ((double)1)/x;
 }
+
 void AtkinsDeltaSquare(double guess0, double error)
 {
     ofstream OUTPUT("./output.txt");
