@@ -108,7 +108,7 @@ double SimpsonOneThird(vector<pair<double, double>> data, double h)
     {
         ans = ans + data[i].second + ((double)4)*data[i+1].second + data[i+2].second;
     }
-    if(n%3 == 1)
+    if(n%2 == 0)
     {
         ans = ans/((double)3) + (data[n-2].second + data[n-1].second)/((double)2);
     }
@@ -134,11 +134,11 @@ double SimpsonThreeEighth(vector<pair<double, double>> data, double h)
     {
         ans = ans + data[i].second + ((double)3)*data[i+1].second + ((double)3)*data[i+2].second + data[i+3].second;
     }
-    if(n%4 == 1)
+    if(n%3 == 2)
     {
         ans = (ans*(double)3)/((double)8) + (data[n-2].second + data[n-1].second)/((double)2);
     }
-    else if(n%4 == 2)
+    else if(n%3 == 0)
     {
         ans = (ans*(double)3)/((double)8) + (data[n-3].second + ((double)4)*data[n-2].second + data[n-1].second)/((double)3);
     }
