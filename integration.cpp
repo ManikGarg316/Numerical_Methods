@@ -14,13 +14,13 @@ double f(double x)
     // return ans;
 }
 
-vector<pair<double, double>> Points_Generator(double x0, double h, int n)
+vector<pair<double, double>> Points_Generator(double h, double a, double b)
 {
-    vector<double> ans;
-    while(x0<b)
+    vector<pair<double, double>> ans;
+    while(a<=b)
     {
-        ans.push_back({x0, f(x0)});
-        x0 += h;
+        ans.push_back({a, f(a)});
+        a += h;
     }
     return ans;
 }
@@ -110,7 +110,7 @@ double SimpsonOneThird(vector<pair<double, double>> data, double h)
     return ans*h;
 }
 
-double SimpsonThreeEighth(vector<pair<double, double>> data)
+double SimpsonThreeEighth(vector<pair<double, double>> data, double h)
 {
     int n = data.size();
     double ans = 0.0;
@@ -156,5 +156,5 @@ int main() {
         {10,3719}
     };
     // cout << Trapezoidal(data_points) << '\n';
-    cout << SimpsonOneThird(data_points) << '\n';
+    cout << SimpsonOneThird(data_points, 1) << '\n';
 }
