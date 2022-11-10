@@ -17,9 +17,10 @@ double f(double x)
 vector<double> Points_Generator(double x0, double h, int n)
 {
     vector<double> ans;
-    for(int i=0;i<n;i++)
+    while(x0<b)
     {
-        ans.push_back(f(x0 + ((double)i)*h));
+        ans.push_back(f(x0));
+        x0 += h;
     }
     return ans;
 }

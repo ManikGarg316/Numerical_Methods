@@ -42,7 +42,7 @@ double MidpointMethod(double h, double initial_val, double start, double find)
     for(int i=0;i<n;i++)
     {
         double k1 = f(start, initial_val);
-        double k2 = f(start+h/2, initial_val + (1/2)*k1*h);
+        double k2 = f(start+h/2, initial_val + (k1*h)/2);
         initial_val = initial_val + h*k2;
         start = start+h;
     }
