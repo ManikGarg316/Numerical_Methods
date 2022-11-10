@@ -14,12 +14,12 @@ double f(double x)
     // return ans;
 }
 
-vector<double> Points_Generator(double x0, double h, int n)
+vector<pair<double, double>> Points_Generator(double x0, double h, int n)
 {
     vector<double> ans;
     while(x0<b)
     {
-        ans.push_back(f(x0));
+        ans.push_back({x0, f(x0)});
         x0 += h;
     }
     return ans;
@@ -30,49 +30,49 @@ double exact(double x)
     return ((double)4)*pow(x, 3.0) - ((double)3)*pow(x, 2.0) + ((double)2)*x - ((double)1);
 }
 
-vector<int> nextPascal(vector<int> vals)
-{
-    int n = vals.size();
-    vector<int> ans;
-    ans.push_back(1);
-    for(int i=0;i<n-1;i++)
-    {
-        ans.push_back(abs(vals[i])+abs(vals[i+1]));
-    }
-    ans.push_back(1);
-    for(int i=1;i<=n;i+=2)
-    {
-        ans[i] = -ans[i];
-    }
-    return ans;
-}
+// vector<int> nextPascal(vector<int> vals)
+// {
+//     int n = vals.size();
+//     vector<int> ans;
+//     ans.push_back(1);
+//     for(int i=0;i<n-1;i++)
+//     {
+//         ans.push_back(abs(vals[i])+abs(vals[i+1]));
+//     }
+//     ans.push_back(1);
+//     for(int i=1;i<=n;i+=2)
+//     {
+//         ans[i] = -ans[i];
+//     }
+//     return ans;
+// }
 
-double NewtonForwardScheme_FirstOrder(double x0, double h, int order_of_accuracy)
-{
-    double ans = 0.0;
-    vector<double> y = Points_Generator(x0, h, order_of_accuracy+1);
+// double NewtonForwardScheme_FirstOrder(double x0, double h, int order_of_accuracy)
+// {
+//     double ans = 0.0;
+//     vector<double> y = Points_Generator(x0, h, order_of_accuracy+1);
    
-    vector<int> Level{1};
-    for(int i=0;i<order_of_accuracy;i++)
-    {
-        Level = nextPascal(Level);
-        double temp = 0.0;
-        for(int j=0;j<Level.size();j++)
-        {
-            temp = temp + ((double)Level[j])*y[j];
-        }
-        temp = temp/(double)(i+1);
-        if((i+1)%2 == 0)
-        {
-            ans -= temp;
-        }
-        else
-        {
-            ans += temp;
-        }
-    }
-    return ans/h;
-}
+//     vector<int> Level{1};
+//     for(int i=0;i<order_of_accuracy;i++)
+//     {
+//         Level = nextPascal(Level);
+//         double temp = 0.0;
+//         for(int j=0;j<Level.size();j++)
+//         {
+//             temp = temp + ((double)Level[j])*y[j];
+//         }
+//         temp = temp/(double)(i+1);
+//         if((i+1)%2 == 0)
+//         {
+//             ans -= temp;
+//         }
+//         else
+//         {
+//             ans += temp;
+//         }
+//     }
+//     return ans/h;
+// }
 
 double Trapezoidal(vector<pair<double, double>> data, double h)
 {
