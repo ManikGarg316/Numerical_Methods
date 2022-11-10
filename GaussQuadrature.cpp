@@ -1,4 +1,6 @@
+#include<iostream>
 #include<bits/stdc++.h>
+#include<fstream>
 using namespace std;
 
 double f(double x)
@@ -8,33 +10,41 @@ double f(double x)
 
 double GaussQuad1(double a, double b)
 {
+    ofstream OUTPUT("./output.txt");
     double e = 0;
     double w = 2;
+    OUTPUT.close();
     return ((b-a)*w*f((b+a)/(double)2 + (e*(b-a))/(double)2))/(double)2;
 }
 
 double GaussQuad2(double a, double b)
 {
+    ofstream OUTPUT("./output.txt");
     double e = sqrt((double)1/(double)3);
     double w = 1;
+    OUTPUT.close();
     return ((b-a)*w*f((b+a)/(double)2 + (e*(b-a))/(double)2))/(double)2 + ((b-a)*w*f((b+a)/(double)2 + (-e*(b-a))/(double)2))/(double)2;
 }
 
 double GaussQuad3(double a, double b)
 {
+    ofstream OUTPUT("./output.txt");
     double e1 = 0;
     double e2 = sqrt((double)3/(double)5);
     double w1 = (double)8/(double)9;
     double w2 = (double)5/(double)9;
+    OUTPUT.close();
     return ((b-a)*w2*f((b+a)/(double)2 + (e2*(b-a))/(double)2))/(double)2 + ((b-a)*w2*f((b+a)/(double)2 + (-e2*(b-a))/(double)2))/(double)2 + ((b-a)*w1*f((b+a)/(double)2 + (e1*(b-a))/(double)2))/(double)2;
 }
 
 double GaussQuad4(double a, double b)
 {
+    ofstream OUTPUT("./output.txt");
     double e1 = sqrt((double)3/(double)7 - ((double)2*sqrt((double)6/(double)5))/(double)7);
     double e2 = sqrt((double)3/(double)7 + ((double)2*sqrt((double)6/(double)5))/(double)7);
     double w1 = ((double)18 + sqrt((double)30))/(double)36;
     double w2 = ((double)18 - sqrt((double)30))/(double)36;
+    OUTPUT.close();
     return ((b-a)*w2*f((b+a)/(double)2 + (e2*(b-a))/(double)2))/(double)2 + ((b-a)*w2*f((b+a)/(double)2 + (-e2*(b-a))/(double)2))/(double)2 + ((b-a)*w1*f((b+a)/(double)2 + (e1*(b-a))/(double)2))/(double)2 + ((b-a)*w1*f((b+a)/(double)2 + (-e1*(b-a))/(double)2))/(double)2;
 }
 

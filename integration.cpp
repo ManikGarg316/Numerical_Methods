@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#include<bits/stdc++.h>
+#include<fstream>
 using namespace std;
 
 double f(double x)
@@ -16,17 +18,21 @@ double f(double x)
 
 vector<pair<double, double>> Points_Generator(double h, double a, double b)
 {
+    ofstream OUTPUT("./output.txt");
     vector<pair<double, double>> ans;
     while(a<=b)
     {
         ans.push_back({a, f(a)});
         a += h;
     }
+    OUTPUT.close();
     return ans;
 }
 
 double exact(double x)
 {
+    ofstream OUTPUT("./output.txt");
+    OUTPUT.close();
     return ((double)4)*pow(x, 3.0) - ((double)3)*pow(x, 2.0) + ((double)2)*x - ((double)1);
 }
 
@@ -76,6 +82,7 @@ double exact(double x)
 
 double Trapezoidal(vector<pair<double, double>> data, double h)
 {
+    ofstream OUTPUT("./output.txt");
     int n = data.size();
     double ans = 0.0;
     for(int i=1;i<n-1;i++)
@@ -83,11 +90,13 @@ double Trapezoidal(vector<pair<double, double>> data, double h)
         ans = ans + ((double)2)*data[i].second;
     }
     ans = ans + data[0].second + data[n-1].second;
+    OUTPUT.close();
     return (ans*h)/((double)2);
 }
 
 double SimpsonOneThird(vector<pair<double, double>> data, double h)
 {
+    ofstream OUTPUT("./output.txt");
     int n = data.size();
     double ans = 0.0;
     if(n<3)
@@ -107,11 +116,13 @@ double SimpsonOneThird(vector<pair<double, double>> data, double h)
     {
         ans = ans/((double)3);
     }
+    OUTPUT.close();
     return ans*h;
 }
 
 double SimpsonThreeEighth(vector<pair<double, double>> data, double h)
 {
+    ofstream OUTPUT("./output.txt");
     int n = data.size();
     double ans = 0.0;
     if(n<4)
@@ -135,6 +146,7 @@ double SimpsonThreeEighth(vector<pair<double, double>> data, double h)
     {
         ans = (ans*(double)3)/((double)8);
     }
+    OUTPUT.close();
     return ans*h;
 }
 

@@ -1,18 +1,25 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#include<bits/stdc++.h>
+#include<fstream>
 using namespace std;
 
 double f1(double x, double y, double t)
 {
+    // ofstream OUTPUT("./output.txt");
+    // OUTPUT.close();
     return y;
 }
 
 double f2(double x, double y, double t)
 {
+    // ofstream OUTPUT("./output.txt");
+    // OUTPUT.close();
     return -x + t;
 }
 
 void RK4(double h, double x0, double y0, double t0, double find)
 {
+    ofstream OUTPUT("./output.txt");
     int n = ceil((find - t0)/h);
     // cout << n << '\n';
     for(int i=0;i<n;i++)
@@ -30,10 +37,12 @@ void RK4(double h, double x0, double y0, double t0, double find)
         t0 = t0 + h;
     }
     cout << x0 << ' ' << y0 << ' ' << t0 << '\n';
+    OUTPUT.close();
     return;
 }
 void RalstonMethod(double h, double x0, double y0, double t0, double find)
 {
+    ofstream OUTPUT("./output.txt");
     int n = ceil((find - t0)/h);
     // cout << n << '\n';
     for(int i=0;i<n;i++)
@@ -49,11 +58,13 @@ void RalstonMethod(double h, double x0, double y0, double t0, double find)
         t0 = t0 + h;
     }
     cout << x0 << ' ' << y0 << ' ' << t0 << '\n';
+    OUTPUT.close();
     return;
 }
 
 void MidpointMethod(double h, double x0, double y0, double t0, double find)
 {
+    ofstream OUTPUT("./output.txt");
     int n = ceil((find - t0)/h);
     // cout << n << '\n';
     for(int i=0;i<n;i++)
@@ -67,11 +78,13 @@ void MidpointMethod(double h, double x0, double y0, double t0, double find)
         t0 = t0 + h;
     }
     cout << x0 << ' ' << y0 << ' ' << t0 << '\n';
+    OUTPUT.close();
     return;
 }
 
 void HeunMethod(double h, double x0, double y0, double t0, double find)
 {
+    ofstream OUTPUT("./output.txt");
     int n = ceil((find - t0)/h);
     // cout << n << '\n';
     for(int i=0;i<n;i++)
@@ -85,11 +98,13 @@ void HeunMethod(double h, double x0, double y0, double t0, double find)
         t0 = t0 + h;
     }
     cout << x0 << ' ' << y0 << ' ' << t0 << '\n';
+    OUTPUT.close();
     return;
 }
 
 void Euler(double h, double x0, double y0, double t0, double find)
 {
+    ofstream OUTPUT("./output.txt");
     int n = ceil((find - t0)/h);
     // cout << n << '\n';
     for(int i=0;i<n;i++)
@@ -101,6 +116,7 @@ void Euler(double h, double x0, double y0, double t0, double find)
         t0 = t0 + h;
     }
     cout << x0 << ' ' << y0 << ' ' << t0 << '\n';
+    OUTPUT.close();
     return;
 }
 
