@@ -2,7 +2,7 @@
 #include<bits/stdc++.h>
 #include<fstream>
 using namespace std;
-
+// if relax parameter is 0, it becomes simple fixed point iteration
 double g(double x)
 {
     return (double)1 + ((double)1)/x;
