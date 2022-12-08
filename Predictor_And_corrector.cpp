@@ -8,7 +8,7 @@ double f(double x, double y)
     return -2.0*pow(10, -12)*(pow(y, 4.0) - pow(250.0, 4.0));
 }
 
-vector<pair<double, double>> PredictorAndCorrector(double x, double y, double h, double limit)
+vector<pair<double, double>> PredictorAndCorrectorHeun(double x, double y, double h, double limit)
 {
     vector<pair<double, double>> vals;
     int n = (limit - x)/h;
