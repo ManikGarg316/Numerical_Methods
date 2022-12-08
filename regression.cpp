@@ -2,6 +2,7 @@
 #include<bits/stdc++.h>
 #include<fstream>
 using namespace std;
+// convert equation into linear form like ax1 + bx2 = c1
 void Pivot(vector<vector<double>>&A, vector<double>&B, vector<double> &S, int k)
 {
     int n = A.size();

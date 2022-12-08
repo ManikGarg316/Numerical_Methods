@@ -23,6 +23,8 @@ void Fixed_Point_Iteration_Relax(double guess, double epsilon, double relaxParam
         }
 
         double value = g(guess);
+        
+        // can be changed according to given in question
         double temp = relaxParameter*guess + (1-relaxParameter)*value;
         if(abs(temp - guess) <= epsilon)
         {

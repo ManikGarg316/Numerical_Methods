@@ -107,69 +107,76 @@ void Gauss(vector<vector<double>> &A, vector<double> &B, vector<double> &X, doub
     return;
 }
 
-
+double f(double x)
+{
+    return -2.42*x*x + 26.5*x - 64.08;
+}
 //Quadratic Spline is not giving the right answer
 //I have to change it and make it right
 double QuadraticSpline(vector<pair<double, double>> data, double x_prime)
 {
     ofstream OUTPUT("./output.txt");
-    int itr=1;
     int n = data.size();
-    for(;itr<n;itr++)
+    // cout << n << '\n';
+    vector<vector<double>> A(3*(n-1), vector<double>(3*(n-1), 0));
+    vector<double> B(3*(n-1), 0);
+    int j = 0;
+    A[0][j] = data[0].first * data[0].first;
+    A[0][j+1] = data[0].first;
+    A[0][j+2] = 1;
+    B[0] = data[0].second;
+    // cout << "My name is Manik\n";
+    for(int i=1;i<n-1;i++)
     {
-        if(x_prime < data[itr].first && data[itr-1].first < x_prime)
+        A[2*i-1][j] = data[i].first * data[i].first;
+        A[2*i-1][j+1] = data[i].first;
+        A[2*i-1][j+2] = 1;
+        B[2*i-1] = data[i].second;
+        A[2*i][j+3] = data[i].first * data[i].first;
+        A[2*i][j+4] = data[i].first;
+        A[2*i][j+5] = 1;
+        B[2*i] = data[i].second;
+        j+=3;
+    }
+    // cout << "My name is Manik\n";
+    A[2*(n-1) - 1][j] = data[n-1].first * data[n-1].first;
+    A[2*(n-1) - 1][j+1] = data[n-1].first;
+    A[2*(n-1) - 1][j+2] = 1;
+    B[2*(n-1) - 1] = data[n-1].second;
+    j = 0;
+    // cout << "My name is Manik\n";
+    for(int i=1;i<n-1;i++)
+    {
+        A[2*n - 3 + i][j] = 2*data[i].first;
+        A[2*n - 3 + i][j+1] = 1;
+        A[2*n - 3 + i][j+3] = -2*data[i].first;
+        A[2*n - 3 + i][j+4] = -1;
+        j+=3;
+    }
+    // cout << "My name is Manik\n";
+    A[3*(n-1) - 1][0] = 1;
+    // for(int pi = 0;pi<3*(n-1);pi++)
+    // {
+    //     for(int pj=0;pj<3*(n-1);pj++)
+    //     {
+    //         cout << A[pi][pj] << " ";            
+    //     }
+    //     cout << "| " << B[pi] << '\n';
+    // }
+    // cout << "My name is Manik\n";
+    vector<double> X(3*(n-1), 0);
+    int er = 0;
+    Gauss(A, B, X, 0.000001, er);
+    int itr = 0;
+    while(itr<n-1)
+    {
+        if(x_prime >= data[itr].first && x_prime < data[itr+1].first)
         {
             break;
         }
+        itr++;
     }
-    itr--;
-    vector<double> d(n, 0.0);
-    for(int i=0;i<n-1;i++)
-    {
-        d[i+1] = (((double)2)*(data[i+1].second - data[i].second))/(data[i+1].first - data[i].first);
-        d[i+1] = d[i+1] - d[i];
-    }
-    double a = pow(x_prime - data[itr].first, 2.0);
-    double ans = ((d[itr+1] - d[itr])*a)/(2*(data[itr+1].first - data[itr].first));
-    ans = ans + (d[itr]*(x_prime - data[itr].first));
-    ans = ans + data[itr].second;
-    OUTPUT.close();
-    return ans;
-    // int n = data.size();
-    // 
-    // cout << data[itr-1].first << ' ' << data[itr-1].second << '\n';
-    // cout << data[itr].first << ' ' << data[itr].second << '\n';
-    // vector<vector<double>> A(n, vector<double>(n));
-    // vector<double> B(n);
-    // for(int i=1;i<n-1;i++)
-    // {
-    //     A[i][i-1] = data[i].first - data[i-1].first;
-    //     A[i][i] = data[i+1].first - data[i-1].first;
-    //     A[i][i+1] = data[i+1].first - data[i].first;
-    //     B[i] = (data[i+1].second - data[i-1].second);
-    // }
-    // A.pop_back();
-    // B.pop_back();
-    // A.erase(A.begin());
-    // B.erase(B.begin());
-    // for(int i=0;i<A.size();i++)
-    // {
-    //     A[i].erase(A[i].begin());
-    //     A[i].pop_back();
-    // }
-    // vector<double> X(n-2);
-    // int er = 0;
-    // Gauss(A, B, X, 0.000001, er);
-    // X.push_back(1);
-    // X.insert(X.begin(), 23);
-    // itr--;
-    // double a = pow((x_prime - data[itr].first), 2.0);
-    // double b = pow((x_prime - data[itr+1].first), 2.0);
-    // double ans = (X[itr+1]*a)/(2*(data[itr+1].first - data[itr].first));
-    // ans = ans + (X[itr]*b)/(2*(data[itr].first - data[itr+1].first));
-    // ans += (data[itr].second + data[itr+1].second)/4;
-    // ans = ans - ((data[itr+1].first - data[itr].first)*(X[itr+1] - X[itr]))/4;
-    // 
+    return X[3*itr]*x_prime*x_prime + X[3*itr+1]*x_prime + X[3*itr+2];
     // return ans;
 }
 
@@ -255,29 +262,23 @@ double LinearSpline(vector<pair<double, double>> data, double x_prime)
 
 int main()
 {
-    double val = 20;
+    double val = 6;
     vector<pair<double, double>> data_points
     {
-        {48,83},
-        {28,62},
-        {63, 93},
-        {64, 70},
-        {5, 35},
-        {4, 84},
-        {16, 60},
-        {10, 64},
-        {65, 93},
-        {17, 83},
+        {2,1},
+        {5,8},
+        {7,3}
     };
     sort(data_points.begin(), data_points.end());
-    for(int i=0;i<10;i++)
-    {
-        cout << data_points[i].first << " " << data_points[i].second << '\n';
-    }
+    // for(int i=0;i<10;i++)
+    // {
+    //     cout << data_points[i].first << " " << data_points[i].second << '\n';
+    // }
     if(val > data_points[data_points.size()-1].first || val < data_points[0].first)
     {
         cout << "Value out of range. Can't extrapolate\n";
         exit(0);
     }
-    cout << QuadraticSpline(data_points, 60.0);
+    cout << QuadraticSpline(data_points, val);
+    cout << '\n' << f(6.0);
 }
