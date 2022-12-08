@@ -262,12 +262,18 @@ double LinearSpline(vector<pair<double, double>> data, double x_prime)
 
 int main()
 {
-    double val = 6;
+    double val = 45;
     vector<pair<double, double>> data_points
     {
-        {2,1},
-        {5,8},
-        {7,3}
+        {39	,22},
+        {58	,41},
+        {97	,13},
+        {52, 7},
+        {28	,36},
+        {84	,10},
+        {93	,60},
+        {44	,44},
+        {68	,16},
     };
     sort(data_points.begin(), data_points.end());
     // for(int i=0;i<10;i++)
@@ -280,5 +286,4 @@ int main()
         exit(0);
     }
     cout << QuadraticSpline(data_points, val);
-    cout << '\n' << f(6.0);
 }
