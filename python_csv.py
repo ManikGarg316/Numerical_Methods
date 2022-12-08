@@ -1,0 +1,10 @@
+f = open("dir_test.csv", "w")
+f.write("My name")
+f.write(",")
+f.write("is Manik\n")
+f.close()
+
+f = open("dir_test.csv", "r")
+arr = f.readlines()
+print(arr)
+f.close()
